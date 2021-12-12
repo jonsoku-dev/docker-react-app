@@ -12,5 +12,18 @@ before_install:
 script:
   - docker run -e CI=true jonsoku/docker-react-app npm run test -- --coverage
 
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: ap-northeast-1
+  app: docker-react-app
+  env: Dockerreactapp-env
+  bucket_name: elasticbeanstalk-ap-northeast-1-258215388708
+  bucket_path: docker-react-app
+  on:
+    branch: master # 어떤 브랜치에 Push 를 할때 AWS 에 배포를 할 것인지
+  access_key-id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+
 after_success:
   - echo "test success"
