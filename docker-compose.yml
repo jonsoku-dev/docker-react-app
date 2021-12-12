@@ -3,22 +3,10 @@ services:
   react:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - '80:80'
     volumes:
       - /usr/src/app/node_modules
       - ./:/usr/src/app
-    stdin_open: true # React 에서 이 옵션이 없으면 dev mode 에서 종료할때 에러가 발생한다.
-  react-test:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-      - /usr/src/app/node_modules
-      - ./:/usr/src/app
-    command: ["npm", "run", "test"] # dockerfile 에 명시된 기존 명령어 위에 덮어씌여진다.
-
-
-# docker build -t Dockerfile.dev . && docker run -it -p 3000:3000 -v /usr/src/app/node_modules -v $(pwd):/usr/src/app 이미지이름(or id)
-# 위 명령어를 docker-compose.yml 에 편하게 정리할 수 있다.
+    stdin_open: true
